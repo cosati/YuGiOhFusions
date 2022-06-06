@@ -32,7 +32,7 @@ public class CardResource {
     
     @GET
     @Produces(MediaType.APPLICATION_JSON)
-    public Response getAllTest() {
+    public Response getAllCards() {
         return Response.status(Response.Status.OK).entity(cardDao.findAllCards()).build();
     }
     
