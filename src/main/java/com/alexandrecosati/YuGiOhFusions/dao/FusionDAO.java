@@ -66,44 +66,6 @@ public class FusionDAO {
 		
 		return fusions;
 		
-	}
-	
-	/*
-	 * public Fusion findFusions(Integer cardId, List<Integer> hand) {
-		List<Fusion> fusions = new ArrayList<>();
-		if (cardId == null || hand.size() <= 0) return null;
-		
-		Connection connection = null;	
-		for (Integer secondCardId : hand) {
-			//Removes Card from hand and tries fusion
-			List<Integer> newHand = new ArrayList<>(hand);
-			newHand.remove(secondCardId);
-			
-			// attempts fusion
-			try {
-				connection = MySQLConnection.getConnectionToDatabase();
-	            PreparedStatement statement = connection.prepareStatement(GET_ONE);
-	            statement.setInt(1, cardId);
-	            statement.setInt(2, secondCardId);
-	            statement.setInt(3, secondCardId);
-	            statement.setInt(4, cardId);
-	            ResultSet resultSet = statement.executeQuery();
-	            
-	            if (resultSet.next()) { // fusion success
-	            	Integer newMonster = resultSet.getInt("monster");
-	            	//Continues trying to fuse with other cards from hand
-	            	return new Fusion(cardId, secondCardId, cardDAO.findById(newMonster), findFusions(newMonster, newHand));
-	            }
-			} catch (SQLException e) {
-				e.printStackTrace();
-			}
-			
-		}
-		
-		return null;
-		
-	}
-	 * */
-	 
+	}	 
 
 }
