@@ -56,7 +56,7 @@ public class FusionDAO {
 	            if (resultSet.next()) { // fusion success
 	            	Integer newMonster = resultSet.getInt("monster");
 	            	//Continues trying to fuse with other cards from hand
-	            	fusions.add(new Fusion(cardId, secondCardId, cardDAO.findById(newMonster), findFusions(newMonster, newHand)));
+	            	fusions.add(new Fusion(cardDAO.findById(cardId), cardDAO.findById(secondCardId), cardDAO.findById(newMonster), findFusions(newMonster, newHand)));
 	            }
 			} catch (SQLException e) {
 				e.printStackTrace();

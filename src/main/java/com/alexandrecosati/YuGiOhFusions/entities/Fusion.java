@@ -4,37 +4,36 @@ import java.util.List;
 
 public class Fusion {
 	
-	private int first_card_id;
-	private int second_card_id;
+	private Card firstCard;
+	private Card secondCard;
 	private Card monster;
 	//private Fusion nextFusion;
 	private List<Fusion> nextFusions;
 	
 	public Fusion() {}
 	
-	public Fusion(int id1, int id2, Card monster, List<Fusion> nextFusions) {
-		this.first_card_id = id1;
-		this.second_card_id = id2;
+	public Fusion(Card firstCard, Card secondCard, Card monster, List<Fusion> nextFusions) {
+		this.firstCard = firstCard;
+		this.secondCard = secondCard;
 		this.monster = monster;
 		//this.nextFusion = nextFusion;
-		this.nextFusions = nextFusions;
-		
+		this.nextFusions = nextFusions;	
 	}
 
-	public int getFirst_card_id() {
-		return first_card_id;
+	public Card getFirstCard() {
+		return firstCard;
 	}
 
-	public void setFirst_card_id(int first_card_id) {
-		this.first_card_id = first_card_id;
+	public void setFirstCard(Card first_card) {
+		this.firstCard = first_card;
 	}
 
-	public int getSecond_card_id() {
-		return second_card_id;
+	public Card getSecondCard() {
+		return secondCard;
 	}
 
-	public void setSecond_card_id(int second_card_id) {
-		this.second_card_id = second_card_id;
+	public void setSecondCard(Card second_card) {
+		this.secondCard = second_card;
 	}
 
 	public Card getMonster() {

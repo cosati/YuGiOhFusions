@@ -27,13 +27,17 @@ public class CardResource {
     @Produces(MediaType.APPLICATION_JSON)
     public Response getCardById(@PathParam("id") int id) {
     	Card card = cardDao.findById(id);
-        return Response.status(Response.Status.OK).entity(card).build();
+        return Response.status(Response.Status.OK)
+        		.header("Access-Control-Allow-Origin", "*")
+        		.entity(card).build();
     }
     
     @GET
     @Produces(MediaType.APPLICATION_JSON)
     public Response getAllCards() {
-        return Response.status(Response.Status.OK).entity(cardDao.findAllCards()).build();
+        return Response.status(Response.Status.OK)
+        		 .header("Access-Control-Allow-Origin", "*")
+        		 .entity(cardDao.findAllCards()).build();
     }
     
     @Path("/fusions")
@@ -46,7 +50,9 @@ public class CardResource {
     		temp.remove(first);
     		fusions.addAll(fusionDao.findFusions(first, temp));
     	}
-    	return Response.status(Response.Status.OK).entity(fusions).build();
+    	return Response.status(Response.Status.OK)
+    			.header("Access-Control-Allow-Origin", "*")
+    			.entity(fusions).build();
     }
     
 }
