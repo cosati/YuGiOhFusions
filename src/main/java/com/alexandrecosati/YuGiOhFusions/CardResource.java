@@ -52,6 +52,7 @@ public class CardResource {
     	}
     	return Response.status(Response.Status.OK)
     			.header("Access-Control-Allow-Origin", "*")
+    			.header("strict-origin-when-cross-origin", "*")
     			.entity(fusions).build();
     }
     
