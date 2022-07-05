@@ -56,4 +56,6 @@ public class CardResource {
     			.entity(fusions).build();
     }
     
+    // TODO: add service to find all fusions of a card
+    
 }
