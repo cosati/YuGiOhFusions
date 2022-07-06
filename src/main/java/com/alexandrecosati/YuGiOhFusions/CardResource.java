@@ -43,10 +43,10 @@ public class CardResource {
     @Path("/fusions")
     @GET
     @Produces(MediaType.APPLICATION_JSON)
-    public Response getFusions(@QueryParam("cardIds") final List<Integer> cardIds) {    	
+    public Response getFusions(@QueryParam("cardId") final List<Integer> cardId) {    	
     	List<Fusion> fusions = new ArrayList<>();
-    	for (Integer first : cardIds) {
-    		List<Integer> temp = new ArrayList<>(cardIds);
+    	for (Integer first : cardId) {
+    		List<Integer> temp = new ArrayList<>(cardId);
     		temp.remove(first);
     		fusions.addAll(fusionDao.findFusions(first, temp));
     	}
@@ -56,6 +56,15 @@ public class CardResource {
     			.entity(fusions).build();
     }
     
-    // TODO: add service to find all fusions of a card
+    @Path("/monsters")
+    @GET
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response getFusionPossibilities(@QueryParam("cardId") final Integer cardId) {
+    	List<Fusion> fusions = fusionDao.findCardFusions(cardId);
+    	return Response.status(Response.Status.OK)
+    			.header("Access-Control-Allow-Origin", "*")
+    			.header("strict-origin-when-cross-origin", "*")
+    			.entity(fusions).build();
+    }
     
 }

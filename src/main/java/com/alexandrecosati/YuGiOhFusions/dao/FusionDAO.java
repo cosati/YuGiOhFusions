@@ -17,6 +17,12 @@ public class FusionDAO {
 	public static final String GET_ONE = "SELECT monster, material_1, material_2 "
 			+ "FROM fusions WHERE material_1 = ? AND material_2 = ? ";
 	
+	public static final String GET_ALL_BY_CARD = "SELECT monster, material_1, material_2 "
+			+ "FROM fusions WHERE material_1 = ? "
+			+ "UNION ALL "
+			+ "SELECT monster, material_2, material_1 "
+			+ "FROM fusions WHERE material_2 = ? ";
+	
 	public Integer findByIds(int id1, int id2) {
 		Connection connection = null;	
 		try {
@@ -67,5 +73,31 @@ public class FusionDAO {
 		return fusions;
 		
 	}	 
+	
+	public List<Fusion> findCardFusions(Integer cardId) {
+		List<Fusion> fusions = new ArrayList<>();
+		if (cardId == null) return fusions;
+		
+		Connection connection = null;	
+		try {
+			connection = MySQLConnection.getConnectionToDatabase();
+            PreparedStatement statement = connection.prepareStatement(GET_ALL_BY_CARD);
+            statement.setInt(1, cardId);
+            statement.setInt(2, cardId);
+            ResultSet resultSet = statement.executeQuery();
+            
+            while (resultSet.next()) { // fusion success
+            	Fusion current = new Fusion();
+            	current.setFirstCard(cardDAO.findById(resultSet.getInt("material_1")));
+            	current.setSecondCard(cardDAO.findById(resultSet.getInt("material_2")));
+            	current.setMonster(cardDAO.findById(resultSet.getInt("monster")));
+            	fusions.add(current);
+            }
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		
+		return fusions;
+	}
 
 }
