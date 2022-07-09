@@ -1,7 +1,9 @@
 package com.alexandrecosati.YuGiOhFusions;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import com.alexandrecosati.YuGiOhFusions.dao.CardDAO;
 import com.alexandrecosati.YuGiOhFusions.dao.FusionDAO;
@@ -29,6 +31,7 @@ public class CardResource {
     	Card card = cardDao.findById(id);
         return Response.status(Response.Status.OK)
         		.header("Access-Control-Allow-Origin", "*")
+        		.header("strict-origin-when-cross-origin", "*")
         		.entity(card).build();
     }
     
@@ -37,6 +40,7 @@ public class CardResource {
     public Response getAllCards() {
         return Response.status(Response.Status.OK)
         		 .header("Access-Control-Allow-Origin", "*")
+        		 .header("strict-origin-when-cross-origin", "*")
         		 .entity(cardDao.findAllCards()).build();
     }
     
@@ -44,12 +48,13 @@ public class CardResource {
     @GET
     @Produces(MediaType.APPLICATION_JSON)
     public Response getFusions(@QueryParam("cardId") final List<Integer> cardId) {    	
-    	List<Fusion> fusions = new ArrayList<>();
+    	Set<Fusion> fusions = new HashSet<>();
     	for (Integer first : cardId) {
     		List<Integer> temp = new ArrayList<>(cardId);
     		temp.remove(first);
-    		fusions.addAll(fusionDao.findFusions(first, temp));
+    		fusions.addAll(fusionDao.fetchFusions(first, temp));
     	}
+    	//fusions.addAll(fusionDao.fetchFusions(cardId));
     	return Response.status(Response.Status.OK)
     			.header("Access-Control-Allow-Origin", "*")
     			.header("strict-origin-when-cross-origin", "*")

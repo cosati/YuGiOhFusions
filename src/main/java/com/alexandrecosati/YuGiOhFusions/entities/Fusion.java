@@ -1,22 +1,26 @@
 package com.alexandrecosati.YuGiOhFusions.entities;
 
-import java.util.List;
+import java.util.HashSet;
+import java.util.Objects;
+import java.util.Set;
 
 public class Fusion {
 	
 	private Card firstCard;
 	private Card secondCard;
+	private Set<Card> materials; //Only used to avoid duplicates
 	private Card monster;
-	//private Fusion nextFusion;
-	private List<Fusion> nextFusions;
+	private Set<Fusion> nextFusions;
 	
 	public Fusion() {}
 	
-	public Fusion(Card firstCard, Card secondCard, Card monster, List<Fusion> nextFusions) {
+	public Fusion(Card firstCard, Card secondCard, Card monster, Set<Fusion> nextFusions) {
 		this.firstCard = firstCard;
 		this.secondCard = secondCard;
+		this.materials = new HashSet<>();
+		materials.add(firstCard);
+		materials.add(secondCard);
 		this.monster = monster;
-		//this.nextFusion = nextFusion;
 		this.nextFusions = nextFusions;	
 	}
 
@@ -44,12 +48,37 @@ public class Fusion {
 		this.monster = monster;
 	}
 
-	public List<Fusion> getNextFusions() {
+	public Set<Fusion> getNextFusions() {
 		return nextFusions;
 	}
 
-	public void setNextFusions(List<Fusion> nextFusions) {
+	public void setNextFusions(Set<Fusion> nextFusions) {
 		this.nextFusions = nextFusions;
+	}
+
+	public Set<Card> getMaterials() {
+		return materials;
+	}
+
+	public void setMaterials(Set<Card> materials) {
+		this.materials = materials;
+	}
+
+	@Override
+	public int hashCode() {
+		return Objects.hash(materials);
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Fusion other = (Fusion) obj;
+		return Objects.equals(materials, other.materials);
 	}
 	
 }
